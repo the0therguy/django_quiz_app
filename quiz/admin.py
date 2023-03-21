@@ -12,3 +12,17 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionAdmin)
+
+
+class UserSubmitAnswerAdmin(admin.ModelAdmin):
+    list_display = ['id', 'question', 'user', 'submitted_answer']
+
+
+admin.site.register(UserSubmittedAnswer, UserSubmitAnswerAdmin)
+
+
+class UserCategoryAttemptAdmin(admin.ModelAdmin):
+    list_display = ['category', 'user', 'attempt_time']
+
+
+admin.site.register(UserCategoryAttempt, UserCategoryAttemptAdmin)

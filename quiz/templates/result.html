@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Results {% endblock %}
+{% block content %}
+    <h4 class="my-4">Results</h4>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Right Answer</th>
+            <th>Submitted Answer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.id }}</td>
+                <td>{{ result.question }}</td>
+                <td>{{ result.question.answer }}</td>
+                {% if result.submitted_answer == result.question.answer %}
+                    <td class="bg-success text-white">{{ result.submitted_answer }}</td>
+                {% else %}
+                    <td class="bg-danger text-black">{{ result.submitted_answer }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table table-bordered">
+        <tr>
+            <th>Total skipped ans</th>
+            <td>{{ skipped }}</td>
+        </tr>
+        <tr>
+            <th>Total attempted</th>
+            <td>{{ attempted }}</td>
+        </tr>
+        <tr>
+            <th>Total Right Answer</th>
+            <td>{{ right_ans }}</td>
+        </tr>
+    </table>
+{% endblock %}

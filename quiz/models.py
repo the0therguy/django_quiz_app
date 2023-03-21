@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -26,4 +27,21 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
+
+class UserSubmittedAnswer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    submitted_answer = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name_plural = 'User submitted answer'
+
+
+class UserCategoryAttempt(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    attempt_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'User Attempts answers'
 
