@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} All Questions of {{ category.title }} {% endblock %}
+{% block content %}
+    <div class="container">
+        {% for q in question %}
+            <div class="container">
+                <div>
+                    <a href="{% url 'delete-question' category.id q.id %}"> <i class="bi bi-trash"> Delete </i> </a>
+                    <div>{{ q.question }}</div>
+                    <div>{{ q.option_1 }}</div>
+                    <div>{{ q.option_2 }}</div>
+                    <div>{{ q.option_3 }}</div>
+                    <div>{{ q.option_4 }}</div>
+                    <div>{{ q.difficulty }}</div>
+                    <div>{{ q.answer }}</div>
+                </div>
+                <hr/>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

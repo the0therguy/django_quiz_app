@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
 from .forms import *
 from .models import *
-from django.contrib.auth.views import PasswordChangeView
-from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -103,4 +103,37 @@ class PasswordsChangeView(PasswordChangeView):
 
 
 def password_success(request):
-    return render(request, 'shop/password_success.html')
+    return render(request, 'password_success.html')
+
+
+@login_required
+def add_question(request):
+    form = AddQuestion
+    message = ''
+    if request.method == 'POST':
+        form = AddQuestion(request.POST)
+        if form.is_valid():
+            form.save()
+            message = 'Question add Successfully'
+            form = AddQuestion
+    return render(request, 'add-category.html', {'form': form, 'msg': message})
+
+
+@login_required
+def delete_category(request, category_id):
+    category = Category.objects.get(id=category_id).delete()
+    categories = Category.objects.all()
+    return render(request, 'categories.html', {'categories': categories})
+
+
+@login_required
+def question_categorywise(request, category_id):
+    category = Category.objects.get(id=category_id)
+    question = Question.objects.filter(**{'category__id': category_id}).order_by('id')
+    return render(request, 'question_list.html', {'question': question, 'category': category})
+
+
+@login_required
+def delete_question(request, category_id, question_id):
+    q = Question.objects.get(id=question_id).delete()
+    return HttpResponse('<h1>Question was deleted</h1>. <a href = "/">home</a>')

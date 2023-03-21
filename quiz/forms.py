@@ -26,3 +26,10 @@ class PasswordChangingForm(PasswordChangeForm):
     class Meta:
         model = User
         fields = ('old_password', 'new_password1', 'new_password2')
+
+
+class AddQuestion(ModelForm):
+    class Meta:
+        model = Question
+        fields = ['category', 'question', 'option_1', 'option_2', 'option_3', 'option_4', 'difficulty', 'time_limit',
+                  'answer']

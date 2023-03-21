@@ -4,13 +4,21 @@
 {% block content %}
     <h3 class="my-5">All Categories</h3>
     <div class="row">
-    {% for category in categories %}
-        <div class="col-md-4">
-            <div class="card">
-                <a href="{% url 'category_question' category.id %}"><img src="{{ category.image.url }}" class="card-img-top" alt={{ category.title }}/></a>
-                <a href="{% url 'category_question' category.id %}"><h4 class="card-header">{{ category.title }}</h4></a>
+        {% for category in categories %}
+            <div class="col-md-4">
+                <div class="card">
+                    <a href="{% url 'category_question' category.id %}"><img src="{{ category.image.url }}"
+                                                                             class="card-img-top"
+                                                                             alt={{ category.title }}/></a>
+                    <a href="{% url 'category_question' category.id %}"><h4
+                            class="card-header">{{ category.title }}</h4></a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'question-categorywise' category.id %}"> Question list
+                            of {{ category.title }} </a>
+                        <a href="{% url 'delete-category' category.id %}"> <i class="bi bi-trash"> Delete </i> </a>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}
