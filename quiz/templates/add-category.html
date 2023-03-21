@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Add Category {% endblock %}
+{% block content %}
+    <div class="container my-4">
+        <h3 class="my-4">Add-category</h3>
+        {% if msg %}
+            <p class="text-success">{{ msg }}</p>
+        {% else %}
+            <h4>Welcome</h4>
+        {% endif %}
+        <form method="post" action="">
+            <table class="table table-bordered">
+                {% csrf_token %}
+                {{ form.as_table }}
+                <tr>
+                    <td colspan="2"><input class="btn btn-primary" type="submit"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+{% endblock %}
